@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package provider.v1;
+
+message GetAccountRequest {}
+
+message ValidateAccountRequest {}
+
+message GetAccountResponse {}
+
+message ValidateAccountResponse {}
+
+service AccountService {
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse) {}
+  rpc ValidateAccount(ValidateAccountRequest)
+      returns (ValidateAccountResponse) {}
+}

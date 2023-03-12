@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package provider.v1;
+
+message CreatePaymentRequest {}
+
+message GetPaymentRequest {}
+
+message CreatePaymentResponse {}
+
+message GetPaymentResponse {}
+
+service ProviderService {
+  rpc GetPayment(GetPaymentRequest) returns (GetPaymentResponse) {}
+  rpc CreatePayment(CreatePaymentRequest) returns (CreatePaymentResponse) {}
+}

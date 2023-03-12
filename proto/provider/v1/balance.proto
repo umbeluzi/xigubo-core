@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package provider.v1;
+
+message ListBalancesRequest {}
+
+message GetBalanceRequest {}
+
+message ListBalancesResponse {}
+
+message GetBalanceResponse {}
+
+service BalanceService {
+  rpc ListBalances(ListBalancesRequest) returns (ListBalancesResponse) {}
+  rpc ValidateAccount(GetBalanceRequest) returns (GetBalanceResponse) {}
+}
