@@ -17,14 +17,14 @@ type Request struct {
 
 type RequestOption func(*Request) error
 
-type Signature string
+type SignatureHeader string
 
 const (
-	signature256 = "X-Signature-256"
-	signature512 = "X-Signature-512"
+	signature256 = SignatureHeader("X-Signature-256")
+	signature512 = SignatureHeader("X-Signature-512")
 )
 
-func withSignature(hashFn func() hash.Hash, header, secret string) RequestOption {
+func withSignature(hashFn func() hash.Hash, header SignatureHeader, secret string) RequestOption {
 	return func(r *Request) error {
 		data, err := io.ReadAll(r.Body)
 		if err != nil {
@@ -36,7 +36,7 @@ func withSignature(hashFn func() hash.Hash, header, secret string) RequestOption
 			return err
 		}
 
-		r.Request.Header.Add(header, hex.EncodeToString(hmac.Sum(nil)))
+		r.Request.Header.Add(string(header), hex.EncodeToString(hmac.Sum(nil)))
 		r.Body = io.NopCloser(bytes.NewReader(data))
 
 		return nil
