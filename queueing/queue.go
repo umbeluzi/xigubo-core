@@ -1,13 +1,14 @@
 package queueing
 
-import "context"
+import (
+	"context"
+	"time"
+)
 
-type Queue interface {
-	Produce(ctx context.Context, queue string, data interface{}) error
-	Consume(ctx context.Context, queue string, data interface{}) (<-chan Message, error)
+type Pusher interface {
+	Push(ctx context.Context, queue string) (interface{}, error)
 }
 
-type Message struct {
-	Header map[string]string
-	Data   []byte
+type Popper interface {
+	Pop(ctx context.Context, queue string, data interface{}, dur time.Duration) error
 }

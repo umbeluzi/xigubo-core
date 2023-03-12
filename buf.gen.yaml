@@ -6,10 +6,10 @@ managed:
     default: github.com/getumbeluzi/umbeluzi-server/gen
 plugins:
   - plugin: buf.build/protocolbuffers/go
-    out: gen
+    out: pb
     opt: paths=source_relative
   - plugin: buf.build/grpc/go
-    out: gen
+    out: pb
     opt:
       - paths=source_relative
       - require_unimplemented_servers=false
