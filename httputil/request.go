@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/hmac"
 	"crypto/sha256"
+	"crypto/sha512"
 	"encoding/hex"
 	"hash"
 	"io"
@@ -47,5 +48,5 @@ func WithSignature256(secret string) RequestOption {
 }
 
 func WithSignature512(secret string) RequestOption {
-	return withSignature(sha256.New, signature512, secret)
+	return withSignature(sha512.New, signature512, secret)
 }
