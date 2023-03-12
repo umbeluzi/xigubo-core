@@ -3,6 +3,7 @@ package httputil
 import (
 	"bytes"
 	"crypto/hmac"
+	"crypto/sha256"
 	"encoding/hex"
 	"hash"
 	"io"
@@ -15,7 +16,14 @@ type Request struct {
 
 type RequestOption func(*Request) error
 
-func WithHMAC(hashFn func() hash.Hash, header, secret string) RequestOption {
+type Signature string
+
+const (
+	signature256 = "X-Signature-256"
+	signature512 = "X-Signature-512"
+)
+
+func withSignature(hashFn func() hash.Hash, header, secret string) RequestOption {
 	return func(r *Request) error {
 		data, err := io.ReadAll(r.Body)
 		if err != nil {
@@ -32,4 +40,12 @@ func WithHMAC(hashFn func() hash.Hash, header, secret string) RequestOption {
 
 		return nil
 	}
+}
+
+func WithSignature256(secret string) RequestOption {
+	return withSignature(sha256.New, signature256, secret)
+}
+
+func WithSignature512(secret string) RequestOption {
+	return withSignature(sha256.New, signature512, secret)
 }
