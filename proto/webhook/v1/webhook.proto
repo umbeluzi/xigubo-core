@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package provider.v1;
+
+message WebhookSendRequest {
+  int32 timeout = 1;
+  string ca_cert = 2;
+  string cert = 3;
+}
+
+message WebhookSendResponse {}
+
+service WebhookSenderService {
+  rpc SendWebhook(WebhookSendRequest) returns (WebhookSendResponse) {}
+}
